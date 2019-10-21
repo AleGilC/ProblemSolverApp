@@ -1,15 +1,23 @@
-<form class="form-signin">
+<div *ngIf="loggedIn()">
+  <p>
+    Logged In Successfully
+  </p>
+  <p (click)="logout()">
+    Log Out
+  </p>
+</div>
+
+<form class="form-signin" *ngIf="!loggedIn()" #loginForm = "ngForm" (submit) = "login()">
   <div class="text-center mb-4">
     <h1 class="h3 mb-3 font-weight-normal">Let Me In</h1>
   </div>
   <div class="form-label-group">
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-    <label for="inputEmail">Email address</label>
+    <input type="text" id="username" name="username" class="form-control" placeholder="User Name" required [(ngModel)]="model.username" autofocus >
+    <label for="inputEmail">Username</label>
   </div>
   <div class="form-label-group">
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required [(ngModel)]="model.password">
     <label for="inputPassword">Password</label>
   </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-  <p class="mt-5 mb-3 text-muted text-center">&copy;2019</p>
+  <button [disabled]="!loginForm.valid" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 </form>
